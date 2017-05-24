@@ -9,6 +9,7 @@
     <title>Library</title>
 </h:head>
 <h:body>
+
     <h:form id="addbook">
         <h3>Add new book</h3>
         <h:panelGrid columns="4">
@@ -17,7 +18,7 @@
                 <f:validateLength minimum="3" />
                 <f:ajax event="keyup" render="messageTitle" />
             </h:inputText>
-            <h:message id="messageTitle" for="title"></h:message>
+            <h:message id="messageTitle" for="title" style="color: red"></h:message>
             <br />
 
             <h:outputText value="Author" />
@@ -25,7 +26,7 @@
                 <f:validateLength minimum="3" />
                 <f:ajax event="keyup" render="messageAuthor" />
             </h:inputText >
-            <h:message id="messageAuthor" for="author"></h:message>
+            <h:message id="messageAuthor" for="author" style="color: red"></h:message>
             <br />
 
             <h:outputText value="Isbn" />
@@ -33,21 +34,21 @@
                 <f:validateRegex pattern="^\d{12}(?:\d|X)$"/>
                 <f:ajax event="keyup" render="messageIsbn" />
             </h:inputText>
-            <h:message id="messageIsbn" for="isbn"></h:message>
+            <h:message id="messageIsbn" for="isbn" style="color: red"></h:message>
             <br />
             <h:outputText value="Price" />
             <h:inputText  id="price" value="#{formbean.price}">
                 <f:validateLongRange minimum="1"/>
                 <f:ajax event="keyup" render="messagePrice" />
             </h:inputText >
-            <h:message id="messagePrice" for="price"></h:message>
+            <h:message id="messagePrice" for="price" style="color: red"></h:message>
             <br />
             <h:outputText value="Year" />
             <h:inputText  id="year" value="#{formbean.year}">
                 <f:validateLongRange minimum="1200" maximum="2017"/>
                 <f:ajax event="keyup" render="messageYear" />
             </h:inputText>
-            <h:message id="messageYear" for="year"></h:message>
+            <h:message id="messageYear" for="year" style="color: red"></h:message>
             <br />
             <h:commandButton action="#{formbean.submit}"
                              value="Add"></h:commandButton>
@@ -97,31 +98,42 @@
                 </h:panelGroup>
                 <h:panelGroup/><h:panelGroup/>
                 <br />
-                <br />
                 <h:outputText value="Title" />
-                <h:inputText id="mtitle" value="#{formbean.title}"></h:inputText>
-                <h:message for="mtitle"></h:message>
+                <h:inputText id="mod_title" value="#{formbean.title}">
+                    <f:validateLength minimum="3" />
+                    <f:ajax event="keyup" render="mod_messageTitle" />
+                </h:inputText>
+                <h:message id="mod_messageTitle" for="mod_title" style="color: red"></h:message>
                 <br />
-                <br />
+
                 <h:outputText value="Author" />
-                <h:inputText id="mauthor" value="#{formbean.author}"></h:inputText >
-                <h:message for="mauthor"></h:message>
+                <h:inputText id="mod_author" value="#{formbean.author}">
+                    <f:validateLength minimum="3" />
+                    <f:ajax event="keyup" render="mod_messageAuthor" />
+                </h:inputText >
+                <h:message id="mod_messageAuthor" for="mod_author" style="color: red"></h:message>
                 <br />
-                <br />
+
                 <h:outputText value="Isbn" />
-                <h:inputText  id="misbn" value="#{formbean.isbn}"></h:inputText >
-                <h:message for="misbn"></h:message>
-                <br />
+                <h:inputText  id="mod_isbn" value="#{formbean.isbn}">
+                    <f:validateRegex pattern="^\d{12}(?:\d|X)$"/>
+                    <f:ajax event="keyup" render="mod_messageIsbn" />
+                </h:inputText>
+                <h:message id="mod_messageIsbn" for="mod_isbn" style="color: red"></h:message>
                 <br />
                 <h:outputText value="Price" />
-                <h:inputText  id="mprice" value="#{formbean.price}"></h:inputText >
-                <h:message for="mprice"></h:message>
-                <br />
+                <h:inputText  id="mod_price" value="#{formbean.price}">
+                    <f:validateLongRange minimum="1"/>
+                    <f:ajax event="keyup" render="mod_messagePrice" />
+                </h:inputText >
+                <h:message id="mod_messagePrice" for="mod_price" style="color: red"></h:message>
                 <br />
                 <h:outputText value="Year" />
-                <h:inputText  id="myear" value="#{formbean.year}"></h:inputText >
-                <h:message for="myear"></h:message>
-                <br />
+                <h:inputText  id="mod_year" value="#{formbean.year}">
+                    <f:validateLongRange minimum="1200" maximum="2017"/>
+                    <f:ajax event="keyup" render="mod_messageYear" />
+                </h:inputText>
+                <h:message id="mod_messageYear" for="mod_year" style="color: red"></h:message>
                 <br />
                 <h:commandButton action="#{formbean.modify(formbean.id)}"
                                  value="Modify"></h:commandButton>
