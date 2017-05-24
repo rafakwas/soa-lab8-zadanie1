@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+<h:head>
+    <title>Library</title>
+</h:head>
+<h:body>
+    <h:form id="addbook">
+        <h3>Add new book</h3>
+        <h:panelGrid columns="4">
+            <h:outputText value="Title" />
+            <h:inputText id="title" value="#{formbean.title}">
+                <f:validateLength minimum="3" />
+                <f:ajax event="keyup" render="messageTitle" />
+            </h:inputText>
+            <h:message id="messageTitle" for="title"></h:message>
+            <br />
+
+            <h:outputText value="Author" />
+            <h:inputText id="author" value="#{formbean.author}">
+                <f:validateLength minimum="3" />
+                <f:ajax event="keyup" render="messageAuthor" />
+            </h:inputText >
+            <h:message id="messageAuthor" for="author"></h:message>
+            <br />
+
+            <h:outputText value="Isbn" />
+            <h:inputText  id="isbn" value="#{formbean.isbn}">
+                <f:validateRegex pattern="^\d{12}(?:\d|X)$"/>
+                <f:ajax event="keyup" render="messageIsbn" />
+            </h:inputText>
+            <h:message id="messageIsbn" for="isbn"></h:message>
+            <br />
+            <h:outputText value="Price" />
+            <h:inputText  id="price" value="#{formbean.price}">
+                <f:validateLongRange minimum="1"/>
+                <f:ajax event="keyup" render="messagePrice" />
+            </h:inputText >
+            <h:message id="messagePrice" for="price"></h:message>
+            <br />
+            <h:outputText value="Year" />
+            <h:inputText  id="year" value="#{formbean.year}">
+                <f:validateLongRange minimum="1200" maximum="2017"/>
+                <f:ajax event="keyup" render="messageYear" />
+            </h:inputText>
+            <h:message id="messageYear" for="year"></h:message>
+            <br />
+            <h:commandButton action="#{formbean.submit}"
+                             value="Add"></h:commandButton>
+        </h:panelGrid>
+    </h:form>
+
+    <h2>Bookstore</h2>
+    <h:dataTable id="datatable" value="#{formbean.books}" var="_book">
+        <h:column>
+            <f:facet name="header">id</f:facet>
+            #{_book.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">isbn</f:facet>
+            #{_book.isbn}
+        </h:column>
+        <h:column>
+            <f:facet name="header">author</f:facet>
+            #{_book.author}
+        </h:column>
+        <h:column>
+            <f:facet name="header">title</f:facet>
+            #{_book.title}
+        </h:column>
+        <h:column>
+            <f:facet name="header">price</f:facet>
+            #{_book.price}
+        </h:column>
+        <h:column>
+            <f:facet name="header">year</f:facet>
+            #{_book.year}
+        </h:column>
+        <h:column>
+            <h:form id="action_form">
+                <h:commandButton value="modify" action="${formbean.renderModification(_book.id)}"/>
+                <h:commandButton value="delete" action="${formbean.delete(_book.id)}"/>
+            </h:form>
+        </h:column>
+    </h:dataTable>
+
+    <h:panelGroup id="modify_group" rendered="#{formbean.modified}">
+        <h:form>
+            <h3>Modify book</h3>
+            <h:panelGrid columns="4">
+                <h:panelGroup>
+                    <h:outputText value="Id #{formbean.id}"/>
+                </h:panelGroup>
+                <h:panelGroup/><h:panelGroup/>
+                <br />
+                <br />
+                <h:outputText value="Title" />
+                <h:inputText id="mtitle" value="#{formbean.title}"></h:inputText>
+                <h:message for="mtitle"></h:message>
+                <br />
+                <br />
+                <h:outputText value="Author" />
+                <h:inputText id="mauthor" value="#{formbean.author}"></h:inputText >
+                <h:message for="mauthor"></h:message>
+                <br />
+                <br />
+                <h:outputText value="Isbn" />
+                <h:inputText  id="misbn" value="#{formbean.isbn}"></h:inputText >
+                <h:message for="misbn"></h:message>
+                <br />
+                <br />
+                <h:outputText value="Price" />
+                <h:inputText  id="mprice" value="#{formbean.price}"></h:inputText >
+                <h:message for="mprice"></h:message>
+                <br />
+                <br />
+                <h:outputText value="Year" />
+                <h:inputText  id="myear" value="#{formbean.year}"></h:inputText >
+                <h:message for="myear"></h:message>
+                <br />
+                <br />
+                <h:commandButton action="#{formbean.modify(formbean.id)}"
+                                 value="Modify"></h:commandButton>
+            </h:panelGrid>
+        </h:form>
+    </h:panelGroup>
+
+</h:body>
+</html>
